@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardHire - Professional Bodyguard Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .guard-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">GuardHire</h1>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-gray-200">Login</a>
+                <a href="#" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="booking-section max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Book Your Personal Security</h2>
+            
+            <form id="bookingForm" class="space-y-6">
+                <div>
+                    <label class="block mb-2">Location</label>
+                    <input type="text" id="location" placeholder="Enter your location" class="w-full p-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Date & Time</label>
+                    <input type="datetime-local" id="datetime" class="w-full p-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block mb-2">Number of Bodyguards</label>
+                    <select id="guardCount" class="w-full p-3 border rounded-lg">
+                        <option value="1">1 Bodyguard</option>
+                        <option value="2">2 Bodyguards</option>
+                        <option value="3">3 Bodyguards</option>
+                        <option value="4">4+ Bodyguards</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mb-2">Bodyguard Type</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="guard-card p-4 border rounded-lg cursor-pointer transition-transform duration-300" onclick="selectGuardType('close-protection')">
+                            <i class="bi bi-shield-fill text-3xl text-blue-600"></i>
+                            <h3 class="font-semibold mt-2">Close Protection</h3>
+                            <p class="text-sm text-gray-600">Professional close protection officers</p>
+                        </div>
+                        <div class="guard-card p-4 border rounded-lg cursor-pointer transition-transform duration-300" onclick="selectGuardType('armed')">
+                            <i class="bi bi-shield-lock-fill text-3xl text-blue-600"></i>
+                            <h3 class="font-semibold mt-2">Armed Security</h3>
+                            <p class="text-sm text-gray-600">Licensed armed protection</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-2">Vehicle Preference</label>
+                    <select id="vehicle" class="w-full p-3 border rounded-lg">
+                        <option value="none">No vehicle needed</option>
+                        <option value="suv">SUV</option>
+                        <option value="sedan">Luxury Sedan</option>
+                        <option value="armored">Armored Vehicle</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mb-2">Additional Requirements</label>
+                    <textarea id="requirements" rows="3" class="w-full p-3 border rounded-lg" placeholder="Any special requirements or preferences?"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    Book Now
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        let selectedGuardType = '';
+
+        function selectGuardType(type) {
+            selectedGuardType = type;
+            document.querySelectorAll('.guard-card').forEach(card => {
+                card.classList.remove('border-blue-600', 'border-2');
+            });
+            event.currentTarget.classList.add('border-blue-600', 'border-2');
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const bookingData = {
+                location: document.getElementById('location').value,
+                datetime: document.getElementById('datetime').value,
+                guardCount: document.getElementById('guardCount').value,
+                guardType: selectedGuardType,
+                vehicle: document.getElementById('vehicle').value,
+                requirements: document.getElementById('requirements').value
+            };
+
+            // Validate form
+            if (!bookingData.location || !bookingData.datetime || !selectedGuardType) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Simulate booking confirmation
+            alert('Booking request sent successfully! Our team will contact you shortly.');
+            
+            // Reset form
+            this.reset();
+            document.querySelectorAll('.guard-card').forEach(card => {
+                card.classList.remove('border-blue-600', 'border-2');
+            });
+            selectedGuardType = '';
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
